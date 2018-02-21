@@ -1,4 +1,0 @@
-*.pem
-db/ib_buffer_pool
-db/ibdata1
-db/ib_logfile0
