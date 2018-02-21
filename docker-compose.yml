@@ -1,0 +1,28 @@
+version: "3"
+services:
+    db:
+        image:   mysql
+        restart: on-failure
+        ports:
+                 - "3303:3306"
+        volumes:
+                 - ./db:/var/lib/mysql
+        environment:
+                 MYSQL_ROOT_PASSWORD: fobloi56
+                 MYSQL_DATABASE: mysqldb
+                 MYSQL_USER: tnt
+                 MYSQL_PASSWORD: tnt
+    backend:
+        image:   tigrondev/tp-sm1-web-djangoapp
+        ports:
+                 - "1488:1488"
+        depends_on:
+                 - db
+        volumes:
+                 - .:/code
+    frontend:
+        image:   tigrondev/tp-sm1-web-frontserv
+        ports:
+                 - "8080:80"
+        depends_on:
+                 - backend
