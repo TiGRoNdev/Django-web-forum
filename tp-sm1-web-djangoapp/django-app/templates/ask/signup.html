@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-lg-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+					Registration Form</h3>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 login-box">
+							{% for e in form.non_field_errors %}
+						                <div class="alert alert-danger">{{ e }}</div>
+        						{% endfor %}
+        						<form role="form" method="post" action="/signup/">
+        							{% csrf_token %}
+                						<fieldset>
+                        						{% for field in form %}
+                                						<div class="control-group 
+                                						{% if field.errors %}has-error{% endif %}">
+                                						<label class="control-label">{{ field.label }}</label>
+                                						<div class="controls">{{ field }}</div>
+                                						</div>
+                        						{% endfor %}
+                						</fieldset>
+                						<div class="form-actions">
+                        						<button type="submit" class="btn btn-labeled btn-success">
+									<span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Register</button>
+                						</div>
+        						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

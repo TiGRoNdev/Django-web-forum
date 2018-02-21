@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container-fluid">
+      <!-- Example row of columns -->
+      <div class="row">
+			{% for question in page.object_list %}
+				<div class="col-md-4">
+			        <h2>{{ question.title }}</h2>
+					<p>{{ question.text }} </p>
+					<p><a class="btn btn-primary" href="/question/{{ question.id }}/" role="button">View details &raquo;</a></p>
+				</div>
+			{% endfor %}
+	  </div>
+	<div class="pagination">
+                <span class="step-links">
+                        {% if page.has_previous %}
+                                <a href="?page={{ page.previous_page_number }}">Previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                                Page {{ page.number }} of {{ page.paginator.num_pages }}.
+                        </span>
+
+                        {% if page.has_next %}
+	                        <a href="?page={{ page.next_page_number }}">Next</a>
+                        {% endif %}
+                </span>
+        </div>  
+
+    </div> <!-- /container -->
+{% endblock %}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    {% block headers %}
+    <meta name="description" content="">
+    {% endblock %} 
+    
+    <meta name="author" content="">
+
+    <title>Ask Vitalya</title>
+	<link rel="stylesheet" href="/static/public/css/bootstrap.css">
+	<link rel="stylesheet" href="/static/public/css/bootstrap-theme.css">
+	<link rel="icon" href="/static/public/img/favicon.png">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+	    <div class="col-md-8">
+            	<div class="navbar-header">
+                	<a class="navbar-brand"><b>Ask VITALYA</b></a>
+            	</div>
+	    	<div>
+			<ul class="nav navbar-nav">
+				<li><a href="/">Home</a></li>
+				<li><a href="/popular/">Popular</a></li>
+				<li><a href="/ask/">Ask</a></li>
+			</ul>
+	    	</div>
+	    </div>
+	    <ul class="nav nav-pills pull-right">
+		{% if username %}
+			<li><h5>Hey, <b>{{ username }}</b>, Vitalya say "Hello"            </h5></li>
+			<li><a class="btn btn-warning" href="/signout/">SignOUT</a></li>
+		{% else %}
+			<li><a class="btn btn-success" href="/login/">SignIN</a></li>
+		{% endif %}
+	    </ul>
+	</div>
+    </nav>
+
+   <div class="container">
+	<div class="row">
+	<div class="col-md-9">
+	{% block content %}
+
+	<div class="row">
+        <div class="col-md-4">
+          <h2>Question</h2>
+          <p>This is an example text in example question. This element in a BLOCK who called "content" </p>
+          <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>Question</h2>
+          <p>This is an example text in example question. This element in a BLOCK who called "content"  </p>
+          <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>Question</h2>
+          <p>This is an example text in example question. This element in a BLOCK who called "content"  </p>
+          <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        </div>
+      </div>
+
+      <hr>
+	
+	{% endblock %}
+	</div>
+	<div class="col-md-3">
+	{% block right-sidebar %}
+	{% endblock %}
+	</div>
+	</div>
+
+
+      <footer>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-4">
+        			<p>&copy; TiGRoNdev 2017</p>
+			</div>
+		</div>
+	</div>
+	
+      </footer>
+    </div> <!-- /container -->
+
+   <!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script> -->
+	<script src="/static/public/js/bootstrap.js"></script>
+	    <script>
+      		$(function () {
+        	    $('[data-toggle="popover"]').popover()
+      		})
+	    </script>
+  </body>
+</html>
