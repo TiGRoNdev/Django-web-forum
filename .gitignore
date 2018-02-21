@@ -1,5 +1,4 @@
 *.pem
-db/
 ib_boofer_pool
 ibdata1
 ib_logfile0
