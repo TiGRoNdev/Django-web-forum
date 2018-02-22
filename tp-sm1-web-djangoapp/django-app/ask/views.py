@@ -43,12 +43,13 @@ def signup(request):
 def ask(request):
     if request.method == "POST":
         form = AskForm(request.POST)
-        if form.is_valid():
-            if request.user.is_anonymous:
-                raise forms.ValidationError("You must be an authenticated user")
-            ask = form.save(user=request.user)
-            url = ask.get_absolute_url()
-            return HttpResponseRedirect(url)
+        if request.user.is_anonymous:
+            form.add_error("author", forms.ValidationError("You must be an authenticated user, please Sign In or Register"))
+        else:
+            if form.is_valid():
+                ask = form.save(user=request.user)
+                url = ask.get_absolute_url()
+                return HttpResponseRedirect(url)
     else:
         form = AskForm()
     return render(request, 'ask/ask.html', {'form': form, 'username': request.user.username})
