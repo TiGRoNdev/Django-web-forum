@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_GET
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, QueryDict
 from django.contrib.auth import login as log_in
 from django.contrib.auth import logout
+from django import forms
 from ask.models import *
 from ask.paginator import paginate
 from ask.forms import AskForm, AnswerForm, LoginForm, SignUpForm
@@ -43,6 +44,8 @@ def ask(request):
     if request.method == "POST":
         form = AskForm(request.POST)
         if form.is_valid():
+            if request.user.is_anonymous:
+                raise forms.ValidationError("You must be an authenticated user")
             ask = form.save(user=request.user)
             url = ask.get_absolute_url()
             return HttpResponseRedirect(url)

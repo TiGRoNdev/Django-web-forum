@@ -47,12 +47,12 @@ class Question(models.Model):
     added_at = models.DateField(blank=True, auto_now_add=True)
     rating = models.IntegerField(default=0)
 
-    author = models.ForeignKey(User, models.DO_NOTHING, null=False, default=1)
+    author = models.ForeignKey(User, models.DO_NOTHING, null=True)
     likes = models.ManyToManyField(User, related_name="question_like_user")
     objects = QuestionManager()
 
     def get_absolute_url(self):
-        return "/question/{}/".format(self.id)
+        return reverse('question', args=[str(self.id)])
 
     def __unicode__(self):
         return self.title

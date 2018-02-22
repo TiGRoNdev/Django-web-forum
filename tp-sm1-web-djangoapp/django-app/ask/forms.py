@@ -61,9 +61,6 @@ class AskForm(forms.Form):
 
     def clean(self):
         text = self.cleaned_data['text']
-        author = self.cleaned_data['author']
-        if author is None:
-            raise forms.ValidationError('You must be an authenticated user, please SignIn or Register')
         if len(text) > 1000:
             raise forms.ValidationError('Symbols in text > 1000')
         return self.cleaned_data
