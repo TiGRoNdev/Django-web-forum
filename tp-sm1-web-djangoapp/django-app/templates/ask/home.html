@@ -5,9 +5,13 @@
       <div class="row">
 			{% for question in page.object_list %}
 				<div class="col-md-4">
-			        <h2>{{ question.title }}</h2>
-					<p>{{ question.text }} </p>
-					<p><a class="btn btn-primary" href="/question/{{ question.id }}/" role="button">View details &raquo;</a></p>
+                    <div class="card" style="width: 25rem;">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ question.title|truncatechars:16 }}</h2>
+                            <p class="card-text">{{ question.text|truncatechars:30 }} </p>
+                            <p><a href="/question/{{ question.id }}" role="button" class="btn btn-outline-info btn-block card-link">Read more</a></p>
+                        </div>
+                    </div>
 				</div>
 			{% endfor %}
       </div>

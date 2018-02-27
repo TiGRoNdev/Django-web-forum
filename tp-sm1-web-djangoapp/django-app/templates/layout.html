@@ -3,47 +3,56 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     {% block headers %}
     <meta name="description" content="">
-    {% endblock %} 
-    
+    {% endblock %}
+
     <meta name="author" content="">
 
     <title>Ask Vitalya</title>
-	<link rel="stylesheet" href="/static/public/css/bootstrap.css">
-	<link rel="stylesheet" href="/static/public/css/bootstrap-theme.css">
+	<link rel="stylesheet" href="/static/public/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/static/public/css/customization.css">
 	<link rel="icon" href="/static/public/img/favicon.png">
   </head>
 
   <body>
 
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-	    <div class="col-md-8">
-            	<div class="navbar-header">
-                	<a class="navbar-brand"><b>Ask VITALYA</b></a>
-            	</div>
-	    	<div>
-			<ul class="nav navbar-nav">
-				<li><a href="/">Home</a></li>
-				<li><a href="/popular/">Popular</a></li>
-				<li><a href="/ask/">Ask</a></li>
-			</ul>
-	    	</div>
-	    </div>
-	    <ul class="nav nav-pills pull-right">
-		{% if username %}
-			<li><h5>Hey, <b>{{ username }}</b>, Vitalya say "Hello"            </h5></li>
-			<li><a class="btn btn-warning" href="/signout/">SignOUT</a></li>
-		{% else %}
-			<li><a class="btn btn-success" href="/login/">SignIN</a></li>
-		{% endif %}
-	    </ul>
-	</div>
-    </nav>
+  <nav class="navbar navbar-customized navbar-expand-lg navbar-light bg-light sticky-top">
+      <a class="navbar-brand" href="/">
+          <img src="/static/public/img/favicon.png" width="30" height="30" class="d-inline-block align-top opacity-80" alt="">
+          <b>AskVitalya</b>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                  <a class="nav-link" href="/popular/">Popular</a>
+              </li>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Ask
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item center-text" href="/ask/"><b>Ask!</b></a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+              </li>
+          </ul>
+          {% if username %}
+            <pre><h5>Hey <b>{{ username }}</b>, Vitalya say "Hello"            </h5></pre>
+            <a href="/signout/" role="button" class="btn btn-outline-warning">Sign Out</a>
+          {% else %}
+            <a href="/login/" role="button" class="btn btn-outline-success">Sign In</a>
+          {% endif %}
+      </div>
+  </nav>
 
-   <div class="container">
+   <div class="container-fluid" id="mainBackground">
 	<div class="row">
 	<div class="col-md-9">
 	{% block content %}
@@ -88,15 +97,9 @@
 	
       </footer>
     </div> <!-- /container -->
-
-   <!-- Placed at the end of the document so the pages load faster -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script> -->
-	<script src="/static/public/js/bootstrap.js"></script>
-	    <script>
-      		$(function () {
-        	    $('[data-toggle="popover"]').popover()
-      		})
-	    </script>
   </body>
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="/static/public/js/bootstrap.min.js"></script>
 </html>

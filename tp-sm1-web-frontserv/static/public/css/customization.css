@@ -1,0 +1,51 @@
+.card {
+    margin: 15px;
+}
+
+.navbar-customized {
+    background-color: #dff1ff;
+}
+
+.opacity-80 {
+    opacity: 0.8;
+}
+
+.opacity-50 {
+    opacity: 0.5;
+}
+
+.opacity-30 {
+    opacity: 0.3;
+}
+
+.opacity-10 {
+    opacity: 0.1;
+}
+
+.center-text {
+    text-align: center;
+}
+
+#mainBackground {
+    background-color: #f7fbff;
+}
+
+@keyframes dropdown-shadow {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.dropdown:hover {
+    background-color: #f7fbff;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    animation: dropdown-shadow 0.5s ease-in-out;
+}
+
+.dropdown .dropdown-menu {
+    margin: 0;
+    padding: 0px;
+    animation: dropdown-shadow 0.5s ease-in-out;
+}
