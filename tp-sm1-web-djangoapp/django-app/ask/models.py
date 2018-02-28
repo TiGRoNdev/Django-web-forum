@@ -6,7 +6,8 @@ from django.urls import reverse
 
 class TagManager(models.Manager):
     def popular(self):
-        return self.order_by('-rating')
+        most_popular_tags = self.order_by('-rating')
+        return most_popular_tags[:10]
 
     def create_tag(self, name):
         tag = self.create(name=name)
@@ -35,7 +36,11 @@ class QuestionManager(models.Manager):
     def create_question(self, d):
         tags = []
         for tag in d['tags']:
-            tags.append(Tag.objects.get_or_create(name=tag))
+            tag1 = Tag.objects.get_or_create(name=tag)
+            tag1_id = tag1[0].id
+            tag1_new_rating = tag1[0].rating + 1
+            Tag.objects.filter(id=tag1_id).update(rating=tag1_new_rating)
+            tags.append(tag1)
         question = self.create(title=d["title"],
                                text=d["text"],
                                added_at=datetime.now().date())
