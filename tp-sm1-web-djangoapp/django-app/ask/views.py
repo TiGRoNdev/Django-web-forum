@@ -83,10 +83,12 @@ def question(request, question_number):
 @require_GET
 def popular(request):
     questions = Question.objects.popular()
+    tags = Tag.objects.popular()
     page = paginate(request, questions)
     return render(request, 'ask/popular.html',
                   {
                       'questions': page.object_list,
+                      'tags': tags,
                       'page': page,
                       'username': request.user.username
                   })
@@ -95,10 +97,12 @@ def popular(request):
 @require_GET
 def home(request):
     questions = Question.objects.new()
+    tags = Tag.objects.popular()
     page = paginate(request, questions)
     return render(request, 'ask/home.html',
                   {
                       'questions': page.object_list,
+                      'tags': tags,
                       'page': page,
                       'username': request.user.username
                   })

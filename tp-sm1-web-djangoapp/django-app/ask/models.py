@@ -4,6 +4,27 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
+class TagManager(models.Manager):
+    def popular(self):
+        return self.order_by('-rating')
+
+    def create_tag(self, name):
+        tag = self.create(name=name)
+        return tag
+
+
+class Tag(models.Model):
+    name = models.CharField(blank=False, max_length=15, unique=True)
+    rating = models.IntegerField(default=0)
+    objects = TagManager()
+
+    def __unicode__(self):
+        return self.name
+
+    def __int__(self):
+        return self.id
+
+
 class QuestionManager(models.Manager):
     def new(self):
         return self.order_by("-id")
@@ -12,10 +33,13 @@ class QuestionManager(models.Manager):
         return self.order_by("-rating")
 
     def create_question(self, d):
+        tags = []
+        for tag in d['tags']:
+            tags.append(Tag.objects.get_or_create(name=tag))
         question = self.create(title=d["title"],
                                text=d["text"],
                                added_at=datetime.now().date())
-        return question
+        return question, tags
 
 
 class AnswerManager(models.Manager):
@@ -48,6 +72,7 @@ class Question(models.Model):
     rating = models.IntegerField(default=0)
 
     author = models.ForeignKey(User, models.DO_NOTHING, null=True)
+    tags = models.ManyToManyField(Tag)
     likes = models.ManyToManyField(User, related_name="question_like_user")
     objects = QuestionManager()
 
@@ -68,4 +93,3 @@ class Answer(models.Model):
 
     def get_absolute_url(self):
         return reverse('question', args=[str(self.question.id)])
-

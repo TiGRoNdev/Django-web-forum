@@ -1,3 +1,4 @@
+import re
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
@@ -54,6 +55,10 @@ class LoginForm(forms.Form):
         return user
 
 
+def get_tags_in_text(text):
+    return re.findall(r'#([\w]+)', text)
+
+
 class AskForm(forms.Form):
     title = forms.CharField(max_length=100, initial='Your Question')
     text = forms.CharField(widget=forms.Textarea)
@@ -61,14 +66,21 @@ class AskForm(forms.Form):
 
     def clean(self):
         text = self.cleaned_data['text']
+        tags = get_tags_in_text(text)
+        for tag in tags:
+            if len(tag) > 15:
+                raise forms.ValidationError('Tag must contain less than 15 symbols')
+        self.cleaned_data['tags'] = tags
         if len(text) > 1000:
             raise forms.ValidationError('Symbols in text > 1000')
         return self.cleaned_data
 
     def save(self, user=None):
-        question = Question.objects.create_question(self.cleaned_data)
+        question, tags = Question.objects.create_question(self.cleaned_data)
         question.author = user
         question.save()
+        for tag in tags:
+            question.tags.add(tag[0])
         return question
 
 

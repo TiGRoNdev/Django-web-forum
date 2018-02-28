@@ -81,6 +81,14 @@
 	</div>
 	<div class="col-md-3">
 	{% block right-sidebar %}
+        <div class="container">
+            <h3><b>Popular Tags</b></h3>
+            <ul>
+                {% for tag in tags %}
+                    <li>{{ tag.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
 	{% endblock %}
 	</div>
 	</div>
