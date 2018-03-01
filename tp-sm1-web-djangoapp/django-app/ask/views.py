@@ -106,3 +106,18 @@ def home(request):
                       'page': page,
                       'username': request.user.username
                   })
+
+
+@require_GET
+def questions_by_tag(request):
+    tag_id = request.GET.get('tag')
+    questions = Question.objects.get_by_tag(tag_id)
+    tags = Tag.objects.popular()
+    page = paginate(request, questions)
+    return render(request, 'ask/home.html',
+                  {
+                      'questions': page.object_list,
+                      'tags': tags,
+                      'page': page,
+                      'username': request.user.username
+                  })

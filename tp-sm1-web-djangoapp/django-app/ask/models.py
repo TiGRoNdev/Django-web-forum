@@ -33,6 +33,15 @@ class QuestionManager(models.Manager):
     def popular(self):
         return self.order_by("-rating")
 
+    def get_by_tag(self, tag_id):
+        tag = Tag.objects.get(id=tag_id)
+        questions = self.all()
+        qs = []
+        for question in questions:
+            if tag in question.tags.all():
+                qs.append(question)
+        return qs
+
     def create_question(self, d):
         tags = []
         for tag in d['tags']:
