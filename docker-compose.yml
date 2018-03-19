@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 services:
     db:
         image:   mysql
@@ -15,12 +15,13 @@ services:
                  MYSQL_PASSWORD: tnt
     backend:
         image:   tigrondev/tp-sm1-web-djangoapp
+        restart:  on-failure
         ports:
-                 - "1488:1488"
+                  - "1488:1488"
         depends_on:
-                 - db
+                  - db
         volumes:
-                 - .:/code
+                  - ./tp-sm1-web-djangoapp/django-app:/srv/backend_server
     frontend:
         image:   tigrondev/tp-sm1-web-frontserv
         ports:
